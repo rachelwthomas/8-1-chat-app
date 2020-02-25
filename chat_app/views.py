@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.base import TemplateView
 from django.views import generic
+from django.urls import reverse
 
 from .models import Room
 
@@ -14,7 +15,5 @@ class ListView(generic.ListView):
 
 class DetailView(generic.DetailView):
     model = Room
-    template_name = 'chat_app/chat_room_detail'    
-
-
-# Create your views here.
+    template_name = 'chat_app/chat_room_detail.html'
+    fields = ['name']

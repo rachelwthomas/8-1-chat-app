@@ -14,7 +14,7 @@ class ListView(generic.ListView):
 
 class DetailView(generic.DetailView):
     model = Room
-    template_name = 'chat_app/chat_rooms/chat_room_detail'    
+    template_name = 'chat_app/chat_room_detail'    
 
 
 # Create your views here.

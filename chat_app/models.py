@@ -7,7 +7,9 @@ User = get_user_model()
 
 class Room(models.Model):
     name = models.CharField(max_length=255)
-    messages = models.ManyToManyField('Message', related_name='chat_rooms')
+    description = models.CharField(max_length=255, null=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='rooms')
+    members = models.ManyToManyField(User)
 
     def __str__(self):
         return self.name
@@ -17,8 +19,9 @@ class Room(models.Model):
 
 
 class Message(models.Model):
-    message = models.CharField(max_length=255)
+    text = models.CharField(max_length=255, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return self.message
+        return self.text[:50]

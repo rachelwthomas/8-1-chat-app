@@ -2,12 +2,11 @@
 
 {% block content %}
 
-<div">
+<div class="login-container d-flex justify-content-center">
   <form method="post">{% csrf_token %}
     {{ form.as_p }}
-    <button">Login</button>
+    <button class="btn btn-success">Login</button>
     <a href="{% url 'accounts:signup' %}">Need an Account?</a>
   </form>
 </div>
-
 {% endblock content %}

@@ -1,0 +1,9 @@
+{% extends 'chat_app/base.html' %}
+
+{% block content %}
+<h1>Pick a Chat Room</h1>
+  {% for room in object_list %}
+  <h5><a href="{% url 'chat_app:chat_room_detail' chat_room.id %}">{{room.name}}</a></h5>
+  {% endfor %}
+
+{% endblock content %}

@@ -3,8 +3,10 @@
 {% block content %}
 <h1>Pick a Chat Room</h1>
   {% for room in object_list %}
-  <h5><a href="{% url 'chat_app:chat_detail' room.id %}">{{room.name}}</a></h5>
-  <span>{{room.description}}</span>
+  <h2><a href="{% url 'chat_app:chat_detail' room.id %}">{{room.name}}</a></h2>
+  <p>{{room.description}}</p>
+  <p>Created By: {{room.created_by}}</p>
+
   {% endfor %}
 
 <a href="{% url 'chat_app:create_room' %}">Create a Chat Room</a>

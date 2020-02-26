@@ -3,7 +3,7 @@ from django.views.generic.base import TemplateView
 from django.views import generic
 from django.urls import reverse
 
-from .models import Room
+from .models import Room, Message
 
 
 class IndexView(TemplateView):
@@ -22,3 +22,12 @@ class RoomCreateView(generic.CreateView):
     model = Room
     template_name = 'chat_app/create_chat_room_form.html'
     fields = ['name', 'description']
+
+class MessageCreateView(generic.CreateView):
+    model = Message
+    fields = ['text']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.room_id = self.kwargs['pk']
+        return super().form_valid(form)

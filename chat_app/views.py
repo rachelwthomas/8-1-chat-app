@@ -17,3 +17,8 @@ class DetailView(generic.DetailView):
     model = Room
     template_name = 'chat_app/chat_room_detail.html'
     fields = ['name']
+
+class RoomCreateView(generic.CreateView):
+    model = Room
+    template_name = 'chat_app/create_chat_room_form.html'
+    fields = ['name', 'description']

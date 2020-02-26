@@ -4,6 +4,9 @@
 <h1>Pick a Chat Room</h1>
   {% for room in object_list %}
   <h5><a href="{% url 'chat_app:chat_detail' room.id %}">{{room.name}}</a></h5>
+  <span>{{room.description}}</span>
   {% endfor %}
+
+<a href="{% url 'chat_app:create_room' %}">Create a Chat Room</a>
 
 {% endblock content %}

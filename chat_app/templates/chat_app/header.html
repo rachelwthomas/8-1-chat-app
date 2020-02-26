@@ -1,4 +1,4 @@
-<nav class="navbar">
+<nav class="nav">
   <ul>
     <li><a href="{% url 'chat_app:index' %}">Home</a></li>
     <li><a href="{% url 'chat_app:chat_rooms' %}">Chat Rooms</a></li>
@@ -8,7 +8,5 @@
       {% else %}
         <li><a href="{% url 'login' %}">Login</a></li>
       {% endif %}
-
-
   </ul>
 </nav>

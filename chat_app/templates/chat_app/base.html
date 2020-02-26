@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +9,13 @@
   <title>Chat App</title>
 </head>
 <body>
-  {% include 'chat_app/header.html' %}
-  {% block content %}
+  <div class="container-fluid">
+    {% include 'chat_app/header.html' %}
+    
+    {% block content %}
 
 
-  {% endblock content %}
+    {% endblock content %}
+  </div>
 </body>
 </html>

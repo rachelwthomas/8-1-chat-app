@@ -1,7 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.base import TemplateView
+from django.http import HttpResponseRedirect
 from django.views import generic
 from django.urls import reverse
+from django.urls import reverse_lazy
 
 from .models import Room, Message
 
@@ -23,6 +25,7 @@ class RoomCreateView(generic.CreateView):
     template_name = 'chat_app/create_chat_room_form.html'
     fields = ['name', 'description']
 
+
 class MessageCreateView(generic.CreateView):
     model = Message
     fields = ['text']
@@ -31,3 +34,17 @@ class MessageCreateView(generic.CreateView):
         form.instance.user = self.request.user
         form.instance.room_id = self.kwargs['pk']
         return super().form_valid(form)
+
+class RoomDeleteView(generic.DeleteView):
+    model = Room
+    success_url = reverse_lazy('chat_app:chat_rooms')
+
+class MessageDeleteView(generic.DeleteView):
+    model = Message
+    # success_url = reverse_lazy('chat_app/chat_room_detail.html')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        room_id = self.object.room.id
+        self.object.delete()
+        return HttpResponseRedirect(reverse_lazy('chat_app:chat_detail', kwargs={'pk': room_id}))

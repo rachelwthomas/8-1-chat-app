@@ -15,7 +15,7 @@ class Room(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('chat_app:chat_rooms')
+        return reverse('chat_app:chat_detail', args=(self.id,))
 
 
 class Message(models.Model):
@@ -27,4 +27,4 @@ class Message(models.Model):
         return self.text[:50]
 
     def get_absolute_url(self):
-        return reverse('chat_app:chat_detail', args=(self.room_id,))     
+        return reverse('chat_app:chat_detail', args=(self.room_id,))

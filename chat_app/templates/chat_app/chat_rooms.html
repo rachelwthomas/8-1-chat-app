@@ -5,7 +5,7 @@
   {% for room in object_list %}
   <h2><a href="{% url 'chat_app:chat_detail' room.id %}">{{room.name}}</a></h2>
   <p>{{room.description}}</p>
-  <p>Created By: {{room.created_by}}</p>
+  <p>Created by: {{room.created_by}}</p>
 
   {% endfor %}
 

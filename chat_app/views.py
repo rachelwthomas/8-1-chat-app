@@ -44,7 +44,16 @@ class MessageDeleteView(generic.DeleteView):
     # success_url = reverse_lazy('chat_app/chat_room_detail.html')
 
     def delete(self, request, *args, **kwargs):
+        # selecting the comment
         self.object = self.get_object()
+        # looking up the id to pass to the redirect, looking for the room it is associated with
         room_id = self.object.room.id
+        #deleting the commnet
         self.object.delete()
+        #once you are done deleting, redirects you to this page.
         return HttpResponseRedirect(reverse_lazy('chat_app:chat_detail', kwargs={'pk': room_id}))
+
+class RoomUpdateView(generic.UpdateView):
+    model = Room
+    template_name = 'chat_app/create_chat_room_form.html'
+    fields = ['name', 'description']

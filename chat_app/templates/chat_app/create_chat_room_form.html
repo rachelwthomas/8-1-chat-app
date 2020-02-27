@@ -4,6 +4,6 @@
 {% block content %}
   <form action="{% url 'chat_app:create_room' %}" method='post' ">{% csrf_token %}
     {{ form.as_p }}
-    <button>Add chat</button>
+    <button>Save</button>
   </form>
 {% endblock content %}

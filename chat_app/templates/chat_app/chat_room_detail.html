@@ -13,6 +13,7 @@
   <input type="text" name='text'>
   <button>Add Comment</button>
   <a href="{% url 'chat_app:room_delete' room.id %}">Delete Room</a>
+  <a href="{% url 'chat_app:room_update' room.id %}">Update Room</a>
 </form>
 
 {% endblock content %}

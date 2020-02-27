@@ -53,12 +53,20 @@ class MessageDeleteView(generic.DeleteView):
         #once you are done deleting, redirects you to this page.
         return HttpResponseRedirect(reverse_lazy('chat_app:chat_detail', kwargs={'pk': room_id}))
 
-class RoomUpdateView(generic.UpdateView):
+class RoomUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Room
     template_name = 'chat_app/create_chat_room_form.html'
     fields = ['name', 'description']
 
-class MessageUpdateView(generic.UpdateView):
+    def test_func(self):
+        obj = self.get_object()
+        return obj.created_by == self.request.user
+
+class MessageUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Message
     template_name = 'chat_app/message_edit.html'
     fields = ['text']
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user

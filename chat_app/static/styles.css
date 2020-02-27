@@ -33,10 +33,17 @@ body {
 }
 
 .room-card {
+  padding: 15px;
+  border-radius: 5%;
   border: solid 5px #79bac1;
   background-color: #2a7886;
   box-shadow: 5px 5px 5px #D1D1D1;
   margin-bottom: 10px;
+  padding: 15px;
+}
+
+.room-card h2 {
+  text-align: center;
 }
 
 .room-card a {
@@ -45,4 +52,17 @@ body {
 
 .room-card p {
   color: #f1f3f4;
+}
+
+
+
+.room-name:hover {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* ***********************styling of users messages */
+
+.message {
+  border: solid 1px #000;
 }

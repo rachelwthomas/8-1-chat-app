@@ -6,13 +6,16 @@
 {% for member in object.member_set.all %}
 <div>{{room.members}}</div>
 {% endfor %}
+<div><a href="#">Join Room</a></div>
 
 
 {% for message in object.message_set.all %}
+<div class="message">
   <div>{{message.text}}</div>
   <div>{{message.user}}</div>
   <div><a href="{% url 'chat_app:message_delete' message.id %}">Delete Comment</a></div>
   <div><a href="{% url 'chat_app:message_edit' message.id %}">Edit Comment</a></div>
+</div>
 {% endfor %}
 
 <form action="{% url 'chat_app:message_create' room.id %}" method='post' ">{% csrf_token %}

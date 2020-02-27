@@ -6,13 +6,13 @@
 <div class="rooms-container row d-flex justify-content-center">
   {% for room in object_list %}
   <div class="card room-card col-2 mr-2">
-    <h2><a href="{% url 'chat_app:chat_detail' room.id %}">{{room.name}}</a></h2>
+    <h2><a href="{% url 'chat_app:chat_detail' room.id %}" class="room-name">{{room.name}}</a></h2>
     <p>{{room.description}}</p>
     <p>Created by: {{room.created_by}}</p>
   </div>
   {% endfor %}
 </div>
 
-<a href="{% url 'chat_app:create_room' %}">Create a Chat Room</a>
+<a href="{% url 'chat_app:create_room' %}" class="btn">Create a Chat Room</a>
 
 {% endblock content %}

@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.views import generic
 from django.urls import reverse
 from django.urls import reverse_lazy
+from django.shortcuts import redirect, get_object_or_404
 
 from .models import Room, Message
 
@@ -25,6 +26,10 @@ class RoomCreateView(generic.CreateView):
     template_name = 'chat_app/create_chat_room_form.html'
     fields = ['name', 'description']
 
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
 
 class MessageCreateView(generic.CreateView):
     model = Message
@@ -35,9 +40,14 @@ class MessageCreateView(generic.CreateView):
         form.instance.room_id = self.kwargs['pk']
         return super().form_valid(form)
 
-class RoomDeleteView(generic.DeleteView):
+class RoomDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
     model = Room
     success_url = reverse_lazy('chat_app:chat_rooms')
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.created_by == self.request.user
+
 
 class MessageDeleteView(generic.DeleteView):
     model = Message
@@ -53,7 +63,18 @@ class MessageDeleteView(generic.DeleteView):
         #once you are done deleting, redirects you to this page.
         return HttpResponseRedirect(reverse_lazy('chat_app:chat_detail', kwargs={'pk': room_id}))
 
-class RoomUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+class JoinRoomView(LoginRequiredMixin, generic.UpdateView):
+    model = Room
+    fields = ('members',)
+
+    def post(self, request, *args, **kwargs):
+        room = get_object_or_404(Room, pk=self.kwargs['pk'])
+        room.members.add(request.user)
+        room.save()
+        return HttpResponseRedirect(reverse('chat_app:chat_detail', kwargs={'pk': room.id}))
+
+
+class RoomUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Room
     template_name = 'chat_app/create_chat_room_form.html'
     fields = ['name', 'description']
@@ -61,6 +82,18 @@ class RoomUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView
     def test_func(self):
         obj = self.get_object()
         return obj.created_by == self.request.user
+
+    # def handle_no_permission(self, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     room_id = self.object.room.id
+    #     return redirect('chat_app:chat_detail', kwargs={'pk': room_id})
+
+    def form_valid(self, request, *args, **kwargs):
+        # self.object = self.get_object()
+        import pdb; pdb.set_trace()
+        # self.object.members.add(self.request.user)
+        # self.object.save()
+        # return super().post(request, *args, **kwargs)
 
 class MessageUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Message

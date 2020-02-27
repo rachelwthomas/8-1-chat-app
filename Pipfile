@@ -9,6 +9,8 @@ verify_ssl = true
 django = "==2.2.10"
 gunicorn = "*"
 whitenoise = "*"
+django-crispy-forms = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.8"

@@ -1,0 +1,9 @@
+{% extends 'chat_app/base.html' %}
+
+
+{% block content %}
+ <h1>Profile Detail View</h1>
+ <div>{{object.user}}</div>
+ <div>{{object.location}}</div>
+<img src="{{object.avatar.url}}" alt="">
+{% endblock content %}

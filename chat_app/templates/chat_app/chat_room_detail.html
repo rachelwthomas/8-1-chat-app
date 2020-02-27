@@ -3,6 +3,11 @@
 {% block content %}
 <h1>Welcome to {{room.name}}</h1>
 
+{% for member in object.member_set.all %}
+<div>{{room.members}}</div>
+{% endfor %}
+
+
 {% for message in object.message_set.all %}
   <div>{{message.text}}</div>
   <div>{{message.user}}</div>

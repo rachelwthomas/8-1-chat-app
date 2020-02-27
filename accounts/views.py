@@ -13,6 +13,7 @@ class ProfileCreateView(generic.CreateView):
     model = Profile
     success_url = reverse_lazy('chat_app:chat_rooms')
     fields = ['location', 'avatar']
+    template_name = 'profile_form.html'
 
     def form_valid(self, form):
         form.instance.user = self.request.user

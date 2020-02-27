@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
 
+    #third-party
+    'crispy_forms',
+
     #local
     'accounts.apps.AccountsConfig',
     'chat_app.apps.ChatAppConfig',

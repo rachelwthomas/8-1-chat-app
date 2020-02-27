@@ -57,3 +57,8 @@ class RoomUpdateView(generic.UpdateView):
     model = Room
     template_name = 'chat_app/create_chat_room_form.html'
     fields = ['name', 'description']
+
+class MessageUpdateView(generic.UpdateView):
+    model = Message
+    template_name = 'chat_app/message_edit.html'
+    fields = ['text']

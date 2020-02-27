@@ -4,6 +4,7 @@ from . import views
 app_name = 'chat_app'
 
 urlpatterns = [
+    path('<int:pk>/chat_room_detail/message_edit',views.MessageUpdateView.as_view(), name='message_edit'),
     path('<int:pk>/chat_room_detail/update', views.RoomUpdateView.as_view(), name='room_update'),
     path('<int:pk>/chat_room_detail/add/delete', views.MessageDeleteView.as_view(), name='message_delete'),
     path('<int:pk>/chat_room_detail/delete', views.RoomDeleteView.as_view(), name='room_delete'),

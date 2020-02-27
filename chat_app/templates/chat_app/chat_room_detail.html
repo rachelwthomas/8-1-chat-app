@@ -6,7 +6,8 @@
 {% for message in object.message_set.all %}
   <div>{{message.text}}</div>
   <div>{{message.user}}</div>
-  <div><a href="{% url 'chat_app:message_delete' message.id %}">Delete comment</a></div>
+  <div><a href="{% url 'chat_app:message_delete' message.id %}">Delete Comment</a></div>
+  <div><a href="{% url 'chat_app:message_edit' message.id %}">Edit Comment</a></div>
 {% endfor %}
 
 <form action="{% url 'chat_app:message_create' room.id %}" method='post' ">{% csrf_token %}

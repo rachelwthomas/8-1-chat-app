@@ -2,15 +2,14 @@
   <ul class="d-flex flex-row navbar-left">
       <li><a href="{% url 'chat_app:index' %}">Home</a></li>
       <li><a href="{% url 'chat_app:chat_rooms' %}">Chat Rooms</a></li>
-</ul>
-<ul class="navbar-right d-flex flex-row">
-  
+  </ul>
+  <ul class="navbar-right d-flex flex-row">
+
       {% if request.user.is_authenticated %}
         <li><a href="{% url 'logout' %}">Logout</a></li>
       {% else %}
         <li><a href="{% url 'login' %}">Login</a></li>
       {% endif %}
-
 
       {% if request.user.is_authenticated and request.user.profile %}
 
@@ -19,5 +18,5 @@
           <li><a href="{% url 'accounts:profile_create' %}">Create Profile</a></li>
       {% endif %}
 
-  </ul>
+    </ul>
 </nav>

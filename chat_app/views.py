@@ -69,7 +69,10 @@ class JoinRoomView(LoginRequiredMixin, generic.UpdateView):
 
     def post(self, request, *args, **kwargs):
         room = get_object_or_404(Room, pk=self.kwargs['pk'])
-        room.members.add(request.user)
+        if request.user in room.members.all():
+            room.members.remove(request.user)
+        else:
+            room.members.add(request.user)
         room.save()
         return HttpResponseRedirect(reverse('chat_app:chat_detail', kwargs={'pk': room.id}))
 
@@ -103,3 +106,5 @@ class MessageUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateV
     def test_func(self):
         obj = self.get_object()
         return obj.user == self.request.user
+
+        

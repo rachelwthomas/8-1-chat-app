@@ -8,15 +8,24 @@
 <div>{{member.username}}</div>
 {% endfor %}
 
+
+{% if user not in room.members.all %}
 <form method="post" action="{% url 'chat_app:join_room' room.id %}">{% csrf_token %}
   <button>Join Room</button>
 </form>
+{% else %}
+<form method="post" action="{% url 'chat_app:join_room' room.id %}">{% csrf_token %}
+  <button>Leave Room</button>
+</form>
+{% endif %}
+
 
 
 {% for message in object.message_set.all %}
 <div class="message">
-  <div>{{message.text}}</div>
   <div>{{message.user}}</div>
+  <div>{{message.text}}</div>
+
   {% if request.user == message.user %}
   <div><a href="{% url 'chat_app:message_delete' message.id %}">Delete Comment</a></div>
   <div><a href="{% url 'chat_app:message_edit' message.id %}">Edit Comment</a></div>
@@ -24,9 +33,13 @@
 </div>
 {% endfor %}
 
+{% if user in room.members.all %}
 <form action="{% url 'chat_app:message_create' room.id %}" method='post' ">{% csrf_token %}
   <input type="text" name='text'>
   <button>Add Comment</button>
+{% endif %}
+
+
 
 {% if request.user == room.created_by %}
 

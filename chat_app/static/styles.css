@@ -66,3 +66,9 @@ body {
 .message {
   border: solid 1px #000;
 }
+
+/* ***********************profile styling */
+
+.profile-picture {
+  width: 20%;
+}

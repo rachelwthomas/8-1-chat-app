@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from django.urls import reverse_lazy
 
@@ -9,7 +10,7 @@ class SignUpView(generic.CreateView):
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
 
-class ProfileCreateView(generic.CreateView):
+class ProfileCreateView(LoginRequiredMixin, generic.CreateView):
     model = Profile
     success_url = reverse_lazy('chat_app:chat_rooms')
     fields = ['location', 'avatar']
@@ -19,5 +20,6 @@ class ProfileCreateView(generic.CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class ProfileDetailView(generic.DetailView):
+class ProfileDetailView(LoginRequiredMixin, generic.DetailView):
     model = Profile
+    template_name = 'profile_detail.html'

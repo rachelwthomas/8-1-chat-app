@@ -8,10 +8,8 @@
 <div>{{member.username}}</div>
 {% endfor %}
 
-{% if request.user in room.members %}
 <form method="post" action="{% url 'chat_app:join_room' room.id %}">{% csrf_token %}
   <button>Join Room</button>
-{% endif %}
 </form>
 
 

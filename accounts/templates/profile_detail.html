@@ -2,8 +2,10 @@
 
 
 {% block content %}
- <h1>Profile Detail View</h1>
- <div>{{object.user}}</div>
- <div>{{object.location}}</div>
-<img src="{{object.avatar.url}}" alt="">
+  <h1>Profile Detail View</h1>
+  <div class="username">{{object.user}}</div>
+  <div class="user-location">Location: {{object.location}}</div>
+  <div class="profile-picture">
+    <img src="{{object.avatar.url}}" alt="">
+  </div>
 {% endblock content %}

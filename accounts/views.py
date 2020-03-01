@@ -23,3 +23,12 @@ class ProfileCreateView(LoginRequiredMixin, generic.CreateView):
 class ProfileDetailView(LoginRequiredMixin, generic.DetailView):
     model = Profile
     template_name = 'profile_detail.html'
+
+class ProfileUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Profile
+    template_name = 'profile_update.html'
+    fields = ['location', 'avatar']
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
